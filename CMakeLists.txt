@@ -17,6 +17,6 @@ string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG
 
 add_executable(mandelbrot main.cpp)
 target_link_libraries(mandelbrot PRIVATE sfml-graphics)
-
+target_link_libraries(mandelbrot PRIVATE TBB::tbb)
 #add_executable(mandelbrot_par main_par.cpp)
 #target_link_libraries(mandelbrot_par PRIVATE TBB::tbb sfml-graphics)

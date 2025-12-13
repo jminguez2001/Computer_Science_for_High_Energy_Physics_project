@@ -3,9 +3,7 @@
 #include <chrono>
 #include <iostream>
 #include <vector>
-#include <oneapi/tbb/parallel_for.h>
-#include <oneapi/tbb/blocked_range2d.h>
-#include <oneapi/tbb/simple_partitioner.h>
+#include <oneapi/tbb.h>
 #include <fstream>
 #include <algorithm>
 
@@ -40,10 +38,10 @@ void parallel_loop(int rows_min, int rows_max, int cols_min, int cols_max,
                    int grain_size, double delta_x, double delta_y, const Complex &top_left, sf::Image &auxiliary_image)
   // function to perform parallel computation of Mandelbrot set
 {
-  oneapi::tbb::simple_partitioner partitioner{};
-  oneapi::tbb::parallel_for(
+  tbb::simple_partitioner partitioner{};
+  tbb::parallel_for(
     // define ranges with grain size and lambda function to process each block, fragment contains the subimage processed by this task
-    oneapi::tbb::blocked_range2d<int>(rows_min, rows_max, grain_size, cols_min, cols_max, grain_size), [&](const oneapi::tbb::blocked_range2d<int> &fragment)
+    tbb::blocked_range2d<int>(rows_min, rows_max, grain_size, cols_min, cols_max, grain_size), [&](const tbb::blocked_range2d<int> &fragment)
       {
       for (int row = fragment.rows().begin(); row != fragment.rows().end(); ++row) // iterate over rows in the fragment
       {
@@ -91,11 +89,12 @@ int main()
     // End timing
     auto end = std::chrono::steady_clock::now();
     // Calculate elapsed time in microseconds
-    std::chrono::duration<double, std::micro> elapsed = end - start;
+    std::chrono::duration<double> elapsed = end - start;
 
     // Store results
     time_result.grain_sizes.push_back(grain_size);
     time_result.times.push_back(elapsed.count());
+    std::cout << "Grain size: " << grain_size << ", elapsed time: " << elapsed << "seconds" << std::endl;
   }
 
   // Finding minimum time and corresponding grain size
@@ -111,7 +110,7 @@ int main()
     const std::string optimal_filename = "optimal_values.txt";
     std::ofstream optimal_file(optimal_filename);
     optimal_file << "Optimal grain size: " << optimal_grain_size << '\n';
-    optimal_file << "Minimum time (microseconds): " << min_time << '\n';
+    optimal_file << "Minimum time: " << min_time << '\n';
     optimal_file.close();
 
     const std::string filename = "timing_results.txt";
