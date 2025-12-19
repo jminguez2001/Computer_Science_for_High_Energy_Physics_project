@@ -58,20 +58,21 @@ No installation in the VM is required apart from Docker.
 All output files are generated inside the build directory from which the executable is run.
 
 ### Build and Run
-- Build Docker images
+
+1. Build Docker images
 ```bash
 docker build -t imapp25-dev .
 docker build -f Dockerfile.app -t imapp25-app .
 ```
 
-- Run development container
+2. Run development container
 ```bash
 docker run -it --rm \
   -v $HOME/containers/IMAPP25:/workspace \
   imapp25-dev
 ```
 
-- Build with CMake inside the container
+3. Build with CMake inside the container
   - Debug build:
   ```bash
   cmake -S . -B build-d -DCMAKE_BUILD_TYPE=Debug
@@ -84,14 +85,15 @@ docker run -it --rm \
   cmake --build build-o
   ```
 
-- Run the application
-  1. Using the runtime image:
+4. Run the application:
+  - First, exit the development container if still running.
+  - Using the runtime image:
   ```bash
   docker run -it --rm \
     -v $HOME/containers/IMAPP25:/workspace \
     imapp25-app
   ```
-  2. Then inside the container:
+  - Then inside the container:
   ```bash
   cd build-o
   ./mandelbrot
