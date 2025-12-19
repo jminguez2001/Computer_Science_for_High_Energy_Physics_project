@@ -62,9 +62,10 @@ All output files are generated inside the build directory from which the executa
 ```bash
 docker build -t imapp25-dev .
 docker build -f Dockerfile.app -t imapp25-app .
+```
 
 - Run development container
-```text
+```bash
 docker run -it --rm \
   -v $HOME/containers/IMAPP25:/workspace \
   imapp25-dev
