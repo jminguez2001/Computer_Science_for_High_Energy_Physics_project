@@ -59,7 +59,7 @@ All output files are generated inside the build directory from which the executa
 
 ### Build and Run
 - Build Docker images
-```text
+```bash
 docker build -t imapp25-dev .
 docker build -f Dockerfile.app -t imapp25-app .
 
@@ -72,26 +72,26 @@ docker run -it --rm \
 
 - Build with CMake inside the container
   - Debug build:
-  ```text
+  ```bash
   cmake -S . -B build-d -DCMAKE_BUILD_TYPE=Debug
   cmake --build build-d
   ```
 
   - Release build:
-  ```text
+  ```bash
   cmake -S . -B build-o -DCMAKE_BUILD_TYPE=Release
   cmake --build build-o
   ```
 
 - Run the application
   1. Using the runtime image:
-  ```text
+  ```bash
   docker run -it --rm \
     -v $HOME/containers/IMAPP25:/workspace \
     imapp25-app
   ```
   2. Then inside the container:
-  ```text
+  ```bash
   cd build-o
   ./mandelbrot
   ```
@@ -99,11 +99,11 @@ docker run -it --rm \
 
 ### Notes
 
-The Release build (build-o) is recommended for performance measurements.
+- The Release build (build-o) is recommended for performance measurements.
 
-The Debug build (build-d) is useful for development and debugging.
+- The Debug build (build-d) is useful for development and debugging.
 
-Output files are written to the directory from which the executable is run.
+- Output files are written to the directory from which the executable is run.
 
 ### Authors
 
