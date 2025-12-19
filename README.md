@@ -38,7 +38,7 @@ No installation in the VM is required apart from Docker.
 ### Project Structure
 
 ```text
-.
+$HOME/containers/IMAPP25/
 ├── main.cpp
 ├── CMakeLists.txt
 ├── README.md
