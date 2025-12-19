@@ -1,4 +1,4 @@
-# Computer_Science_for_High_Energy_Physics_project
+# Computer Science for High Energy Physics project
 ## Parallel Mandelbrot Set with TBB and SFML using Docker
 
 This project computes and renders the Mandelbrot set using C++ with **Intel oneAPI Threading Building Blocks (TBB)** for parallelism and **SFML** for image handling. It runs using different grain sizes for a 2D parallel loop to find the optimal configuration and then generates an image using that value.
